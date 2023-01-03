@@ -5,7 +5,17 @@ import Typography from '@tiptap/extension-typography'
 import Placeholder from '@tiptap/extension-placeholder'
 import Document from '@tiptap/extension-document'
 
-export function Editor() {
+export interface IContentUpdateParams {
+  title: string
+  content: string
+}
+
+interface IEditorProps {
+  content: string
+  onContentUpdated: (data: IContentUpdateParams) => Promise<void>
+}
+
+export function Editor({ content, onContentUpdated }: IEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({ document: false }),
@@ -18,7 +28,15 @@ export function Editor() {
           'before:content-[attr(data-placeholder)] before:text-gray-500 before:h-0 before:float-left before:pointer-events-none',
       }),
     ],
-    content: '<h1>Backend</h1><p>Esse é um conteúdo sobre backend.</p>',
+    content,
+    onUpdate: async ({ editor }) => {
+      const contentRegex = /(<h1>(?<title>.+)<\/h1>(?<content>.+)?)/
+      const parsedContent = editor.getHTML().match(contentRegex)?.groups
+
+      const title = parsedContent?.title || 'Untitled'
+      const content = parsedContent?.content || '<p></p>'
+      await onContentUpdated({ title, content })
+    },
     autofocus: 'end',
     editorProps: {
       attributes: {

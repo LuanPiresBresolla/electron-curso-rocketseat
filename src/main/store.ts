@@ -1,11 +1,14 @@
+import { IDocument } from '@shared/types/ipc'
 import Store from 'electron-store'
 
-interface StoreType {
-  documents: Record<string, any>
+interface IStoreType {
+  documents: Record<string, IDocument>
 }
 
-export const store = new Store<StoreType>({
+export const store = new Store<IStoreType>({
   defaults: {
     documents: {},
   },
 })
+
+console.log(store.path)
