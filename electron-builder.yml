@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: rocketseat-curso
+appId: com.rotion.app
+productName: Rotion
 directories:
   buildResources: build
 files:
@@ -7,10 +7,10 @@ files:
   - '!src/*'
   - '!electron.vite.config.{js,ts,mjs,cjs}'
   - '!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
-  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+  - '!{tsconfig.json}'
 asarUnpack:
   - '**/*.{node,dll}'
-afterSign: build/notarize.js
+# afterSign: build/notarize.js
 win:
   executableName: rocketseat-curso
 nsis:
@@ -30,13 +30,14 @@ dmg:
 linux:
   target:
     - AppImage
-    - snap
+    # - snap
     - deb
   maintainer: electronjs.org
   category: Utility
+  synopsis: ${description}
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
-publish:
-  provider: generic
-  url: https://example.com/auto-updates
+# publish:
+#   provider: generic
+#   url: https://example.com/auto-updates

@@ -4,6 +4,7 @@ import { createFileRoute, createURLRoute } from 'electron-router-dom'
 import path from 'path'
 
 import { createTrayMenu } from './tray'
+import { createShortcurs } from './shortcuts'
 
 import './ipc'
 import './store'
@@ -32,6 +33,7 @@ function createWindow(): void {
   })
 
   createTrayMenu(mainWindow)
+  createShortcurs(mainWindow)
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
