@@ -3,6 +3,8 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { createFileRoute, createURLRoute } from 'electron-router-dom'
 import path from 'path'
 
+import { createTrayMenu } from './tray'
+
 import './ipc'
 import './store'
 
@@ -28,6 +30,8 @@ function createWindow(): void {
       sandbox: false,
     },
   })
+
+  createTrayMenu(mainWindow)
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
